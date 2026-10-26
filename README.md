@@ -7,7 +7,7 @@ job match checker that compares your resume against a pasted job description.
 
 Everything you type stays in your browser. No accounts, no database, no AI service, no tracking.
 
-**Live demo:** https://resumeforge-six.vercel.app
+**Live demo:** https://resumeforge-teal.vercel.app
 
 ---
 
