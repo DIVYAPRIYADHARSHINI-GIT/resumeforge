@@ -1,0 +1,19 @@
+{
+	"extends": "$app/tsconfig",
+	"include": ["src", "test", "*"],
+	"exclude": ["src/service-worker", "probes"],
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		// SvelteKit 3 resolves `#lib/*` through package.json "imports"; mirror it for tsc.
+		"paths": {
+			"#lib/*": ["./src/lib/*"]
+		}
+	}
+}

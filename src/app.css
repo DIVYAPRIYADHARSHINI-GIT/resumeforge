@@ -1,0 +1,271 @@
+@import 'tailwindcss';
+
+/* ResumeForge design tokens.
+   Warm off-white workspace, deep charcoal ink, ember orange accent.
+   The resume pages always stay white like paper, even in dark mode. */
+
+@theme {
+	--color-paper: #faf8f5;
+	--color-ink: #1f2933;
+	--color-ember: #e8590c;
+	--color-ember-soft: #fff1e8;
+	--color-good: #2f9e44;
+	--color-warn: #c47f0a;
+	--color-bad: #c92a2a;
+
+	--font-ui: 'RF Inter', ui-sans-serif, system-ui, sans-serif;
+
+	--radius-card: 0.75rem;
+}
+
+/* ---- Self-hosted fonts. No external font service, which also means exports never
+       depend on a third party being up. ---- */
+@font-face {
+	font-family: 'RF Inter';
+	src: url('/fonts/inter-regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF Inter';
+	src: url('/fonts/inter-bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF Inter';
+	src: url('/fonts/inter-italic.ttf') format('truetype');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF Source Serif';
+	src: url('/fonts/source-serif-regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF Source Serif';
+	src: url('/fonts/source-serif-bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF Source Serif';
+	src: url('/fonts/source-serif-italic.ttf') format('truetype');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF Lato';
+	src: url('/fonts/lato-regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF Lato';
+	src: url('/fonts/lato-bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF Lato';
+	src: url('/fonts/lato-italic.ttf') format('truetype');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF IBM Plex Sans';
+	src: url('/fonts/ibm-plex-sans-regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF IBM Plex Sans';
+	src: url('/fonts/ibm-plex-sans-bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'RF IBM Plex Sans';
+	src: url('/fonts/ibm-plex-sans-italic.ttf') format('truetype');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- Interface surfaces ---- */
+:root {
+	--surface: #faf8f5;
+	--surface-raised: #ffffff;
+	--surface-sunken: #f2eee8;
+	--panel: #f4f1ec;
+	--border: #e2dcd3;
+	--text: #1f2933;
+	--text-muted: #5b6670;
+	--topbar: #1f2933;
+}
+
+.dark {
+	--surface: #15191e;
+	--surface-raised: #1d2228;
+	--surface-sunken: #111418;
+	--panel: #232931;
+	--border: #333b45;
+	--text: #e9eef3;
+	--text-muted: #a3b0bc;
+	--topbar: #11151a;
+}
+
+html,
+body {
+	background: var(--surface);
+	color: var(--text);
+}
+
+body {
+	font-family: var(--font-ui);
+	-webkit-font-smoothing: antialiased;
+}
+
+/* ---- Accessibility ---- */
+:focus-visible {
+	outline: 3px solid var(--color-ember);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+.dark :focus-visible {
+	outline-color: #ff9a5c;
+}
+
+/* Respect the user's motion preference everywhere. */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+@utility surface-card {
+	background: var(--surface-raised);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-card);
+}
+
+/* Minimum 44px tap targets on controls. */
+@utility tap {
+	min-height: 44px;
+	min-width: 44px;
+}
+
+/* Skeleton loader shimmer. */
+@keyframes rf-shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+.skeleton {
+	background: linear-gradient(90deg, var(--panel) 25%, var(--surface-sunken) 50%, var(--panel) 75%);
+	background-size: 200% 100%;
+	animation: rf-shimmer 1.4s ease-in-out infinite;
+	border-radius: 6px;
+}
+
+/* ---- Resume paper ---- */
+.rf-page {
+	background: #ffffff;
+	color: #1a1a1a;
+	box-shadow:
+		0 1px 2px rgba(31, 41, 51, 0.08),
+		0 8px 24px rgba(31, 41, 51, 0.14);
+	position: relative;
+}
+
+/* Highlighted job keywords inside the preview. Underline carries the meaning too, so it
+   does not rely on colour alone. */
+.rf-kw {
+	background: #fff3bf;
+	box-shadow: inset 0 -2px 0 #e8a90c;
+}
+
+.dark .rf-kw {
+	background: #fff3bf;
+	color: #1a1a1a;
+}
+
+/* ---- Drag and drop ---- */
+.rf-dragging {
+	opacity: 0.55;
+}
+
+.rf-drop-target {
+	outline: 2px dashed var(--color-ember);
+	outline-offset: 2px;
+}
+
+/* ---- Print: the "Print or save as PDF" backup path ---- */
+@media print {
+	@page {
+		margin: 0;
+	}
+
+	body {
+		background: #ffffff !important;
+	}
+
+	.no-print {
+		display: none !important;
+	}
+
+	.print-only {
+		display: block !important;
+	}
+
+	.rf-print-root {
+		position: static !important;
+		display: block !important;
+		overflow: visible !important;
+		height: auto !important;
+	}
+
+	.rf-page {
+		box-shadow: none !important;
+		margin: 0 !important;
+		border: none !important;
+		break-after: page;
+		page-break-after: always;
+		transform: none !important;
+	}
+
+	.rf-page:last-child {
+		break-after: auto;
+		page-break-after: auto;
+	}
+
+	.rf-kw {
+		background: transparent !important;
+		box-shadow: none !important;
+	}
+}
